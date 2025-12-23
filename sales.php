@@ -207,10 +207,11 @@ if (!empty($filters['customer_id']) && $customerCodeColumn) {
 }
 
 // فیلتر تاریخ (با فرمت فارسی)
+// ========== فیلتر تاریخ (با فرمت فارسی) - نسخه اصلاح شده ==========
 if (!empty($filters['date_from']) && $dateColumn) {
     $normalizedFrom = normalizePersianDateForComparison($filters['date_from']);
     if (!empty($normalizedFrom)) {
-        $whereConditions[] = "REPLACE(REPLACE(REPLACE($dateColumn, '/', '-'), '.', '-'), 'ـ', '-') >= ?";
+        $whereConditions[] = "$dateColumn >= ?";
         $params[] = $normalizedFrom;
     }
 }
@@ -218,7 +219,7 @@ if (!empty($filters['date_from']) && $dateColumn) {
 if (!empty($filters['date_to']) && $dateColumn) {
     $normalizedTo = normalizePersianDateForComparison($filters['date_to']);
     if (!empty($normalizedTo)) {
-        $whereConditions[] = "REPLACE(REPLACE(REPLACE($dateColumn, '/', '-'), '.', '-'), 'ـ', '-') <= ?";
+        $whereConditions[] = "$dateColumn <= ?";
         $params[] = $normalizedTo;
     }
 }
